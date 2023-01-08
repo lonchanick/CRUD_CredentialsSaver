@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CRUD_CredentialsSaver": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\.NET FOLDER\\C# ACADEMY\\Projects\\CRUD_CredentialsSaver"
+    }
+  }
+}
