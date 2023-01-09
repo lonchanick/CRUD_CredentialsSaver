@@ -1,6 +1,6 @@
 ﻿using CRUD_CredentialsSaver;
 
-/*while (true)
+while (true)
 {
     Console.Clear();
     Console.WriteLine("--- Main Menu ---");
@@ -8,7 +8,7 @@
     Console.WriteLine("2. Update credential");
     Console.WriteLine("3. Delete credential");
     Console.WriteLine("4. Show credential");
-    Console.WriteLine("4. Exit");
+    Console.WriteLine("5. Exit");
     Console.Write("Enter your choice: ");
 
     string input = Console.ReadLine();
@@ -16,23 +16,35 @@
     switch (input)
     {
         case "1":
-            Console.WriteLine("You selected Option 1.");
-            Console.WriteLine("Email: ");
+            Console.Clear();
+            Console.WriteLine("You selected Option 1. (INSERT)");
+            CRUD.Insert();
             Console.ReadLine();
             break;
         case "2":
-            Console.WriteLine("You selected Option 2.");
-            Console.WriteLine("Press Enter to continue...");
+            Console.Clear();
+            Console.WriteLine("You selected Option 2. (UPDATE)");
+            CRUD.GetAllRecords();
+            CRUD.Insert();
             Console.ReadLine();
             break;
         case "3":
-            Console.WriteLine("You selected Option 3.");
-            Console.WriteLine("Press Enter to continue...");
+            Console.Clear();
+            Console.WriteLine("You selected Option 3.(DELETE)");
+            CRUD.GetAllRecords();
+            CRUD.Delete();
             Console.ReadLine();
             break;
         case "4":
+            Console.Clear();
+            Console.WriteLine("You selected Option 4.(SELECT)");
+            CRUD.GetAllRecords();
+            Console.ReadLine();
+            break;
+        case "5":
             return;
         default:
+            Console.Clear();
             Console.WriteLine("Invalid input.");
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
@@ -40,8 +52,6 @@
     }
 }
 
-*/
 
-CRUD.Aux();
 
 
