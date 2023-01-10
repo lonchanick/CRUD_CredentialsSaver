@@ -1,15 +1,31 @@
 ﻿using System.Collections.Generic;
+using ConsoleTables;
 using Microsoft.Data.Sqlite;
 
 namespace CRUD_CredentialsSaver
 {
     public class CRUD
     {
+        static void PrettyTable(List<Credential> records)
+        {
+            var table = new ConsoleTable("Id", "Email", "Nickname", "Fecha");
+            foreach (var item in records)
+                table.AddRow(item.Id, item.Email, item.NickName, "Warever");
+            table.Write(Format.MarkDown);
+        }
         static string connStr = "Data Source = CredentialSaver.db";
         static string GetStringInput(string param)
         {
-            Console.Write($"{param}! ");
-            string value = Convert.ToString(Console.ReadLine());
+            Console.Write($"{param}: ");
+            string value = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(value))
+            {
+                Console.WriteLine("Empty values are not allowed, Try again");
+                value = Console.ReadLine();
+
+            }
+
             return value;
         }
         static int GetIntInput(string param)
@@ -17,13 +33,16 @@ namespace CRUD_CredentialsSaver
             Console.Write($"{param}: "); string readed = Console.ReadLine();
             int aux;
             if (!int.TryParse(readed, out aux))
-                Console.Write($"Error: {param} no valid! try again: "); readed = Console.ReadLine();
+            {
+                Console.Write($"Error: {param} is not a valid input! try again: ");
+                readed = Console.ReadLine();
+            }
             
             return aux;
         }
         public static void Insert()
         {   
-            string mail = GetStringInput("Email!");
+            string mail = GetStringInput("Email");
             string nickname = GetStringInput("Nickname");
             
             using (var connection = new SqliteConnection(connStr))
@@ -64,13 +83,7 @@ namespace CRUD_CredentialsSaver
                     Console.WriteLine("There are no records yet");
                 }
                 connection.Close();
-
-                foreach(var item in records)
-                {
-                    Console.WriteLine(String.Format("Id: {0}",item.Id));
-                    Console.WriteLine(String.Format("Email: {0}",item.Email));
-                    Console.WriteLine(String.Format("NickName: {0},{1}",item.NickName, "\n"));
-                }
+                PrettyTable(records);
             }
         }
         public static void Delete()
@@ -82,13 +95,15 @@ namespace CRUD_CredentialsSaver
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = $"DELETE FROM CredentialSaver WHERE Id = '{Id}'";
                 var rowCount = cmd.ExecuteNonQuery();
-                if(rowCount > 0) 
+                if(rowCount > 0)
                 {
-                    Console.WriteLine($"'{rowCount}' row(s) deleted");
+                    Console.WriteLine($"'{rowCount}' row deleted");
+                    Console.ReadLine();
                 }
                 else
                 {
-                    Console.WriteLine("That row does not exist!");
+                    Console.WriteLine("Row does not exist!");
+                    Console.ReadLine();
                 }
 
                 connection.Close();
@@ -96,6 +111,7 @@ namespace CRUD_CredentialsSaver
         }
         public static void Update()
         {
+            Console.WriteLine("Seleccione un Id");
             int Id = GetIntInput("Id");
             using (var connection = new SqliteConnection(connStr))
             {
@@ -106,11 +122,12 @@ namespace CRUD_CredentialsSaver
                 int checkQuery = Convert.ToInt32(cmd2.ExecuteScalar());
                 if (checkQuery == 0)
                 {
-                    Console.WriteLine($"There is no Record for this Id: {Id}");
+                    Console.WriteLine($"Id '{Id}' does not Exist");
                     //connection.Close();
                     Update();
                 }
-                string email = GetStringInput("Email!");
+                Console.WriteLine($"Updating Id: {Id}");
+                string email = GetStringInput("Email");
                 string nickname = GetStringInput("Nickname");
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = 

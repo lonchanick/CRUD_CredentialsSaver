@@ -19,21 +19,18 @@ while (true)
             Console.Clear();
             Console.WriteLine("You selected Option 1. (INSERT)");
             CRUD.Insert();
-            Console.ReadLine();
             break;
         case "2":
             Console.Clear();
             Console.WriteLine("You selected Option 2. (UPDATE)");
             CRUD.GetAllRecords();
             CRUD.Update();
-            Console.ReadLine();
             break;
         case "3":
             Console.Clear();
             Console.WriteLine("You selected Option 3.(DELETE)");
             CRUD.GetAllRecords();
             CRUD.Delete();
-            Console.ReadLine();
             break;
         case "4":
             Console.Clear();
@@ -51,10 +48,3 @@ while (true)
             break;
     }
 }
-
-
-
-
-
-
-
