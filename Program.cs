@@ -25,7 +25,7 @@ while (true)
             Console.Clear();
             Console.WriteLine("You selected Option 2. (UPDATE)");
             CRUD.GetAllRecords();
-            CRUD.Insert();
+            CRUD.Update();
             Console.ReadLine();
             break;
         case "3":
@@ -51,6 +51,9 @@ while (true)
             break;
     }
 }
+
+
+
 
 
 

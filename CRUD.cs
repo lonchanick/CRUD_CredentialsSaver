@@ -8,15 +8,18 @@ namespace CRUD_CredentialsSaver
         static string connStr = "Data Source = CredentialSaver.db";
         static string GetStringInput(string param)
         {
-            Console.Write($"Type a {param}! ");
+            Console.Write($"{param}! ");
             string value = Convert.ToString(Console.ReadLine());
             return value;
         }
         static int GetIntInput(string param)
         {
-            Console.Write($"Type a {param}! ");
-            int value = Convert.ToInt32(Console.ReadLine());
-            return value;
+            Console.Write($"{param}: "); string readed = Console.ReadLine();
+            int aux;
+            if (!int.TryParse(readed, out aux))
+                Console.Write($"Error: {param} no valid! try again: "); readed = Console.ReadLine();
+            
+            return aux;
         }
         public static void Insert()
         {   
